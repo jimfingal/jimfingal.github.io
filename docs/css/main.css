@@ -61,65 +61,34 @@ blockquote p {
 	margin-left: 26%;
 	min-height: 90em;
 	background-color: #fff;
-	border-left: 1px solid #e3e3e3;
 }
-#main header {
-    padding: 1em 0 1em 4em;
+
+h1,h2,h3,h4,h5,h6{margin:0;font-family:inherit;font-weight:bold;color:inherit;text-rendering:optimizelegibility;}
+strong{font-weight:bold;}
+em{font-style:italic;}
+
+h1 {
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 1em;
 }
-#main header time {
-    display: block;
+h2 {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 1em;
+}
+h3 {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+h4 {
     font-size: 1.6em;
     font-weight: 700;
-    letter-spacing: 1px;
-    color: #000;
-    text-transform: uppercase;
-
 }
 
-#main header h1 {
-    font-size: 4em;
-    font-weight: 700;
-}
-#main header h1 a {
+a {
     color: #000;
     text-decoration: none;
     border-bottom: 1px solid #ccc;
-}
-
-.block {
-    padding-left: 2em;
-}
-
-.blurb {
-    padding-left: 2em;
-}
-
-.blurbtable td {
-    border: 0;
-    padding-top: 0px;
-    margin-top: 0px;
-
-}
-
-.blurbtable td p {
-    border: 0;
-    padding-top: 0px;
-    margin-top: 0px;
-
-}
-
-
-td.thumb {
-    width: 20%;
-}
-
-td.tblurb {
-    width: 80%;
-    line-height: 1.5;
-    padding-left: 20px;
-}
-
-.clear {
-    clear: both;
 }
 
