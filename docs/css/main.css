@@ -45,7 +45,7 @@ p {
 }
 
 ul, li {
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
 hr {
@@ -98,6 +98,7 @@ img {
     border: 1px solid #ccc;
 }
 
+
 div.section {
-    padding-left: 5%;
+    padding-left: 10px;
 }

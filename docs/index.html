@@ -114,7 +114,6 @@
     <a name="projects"/>
     <h1>Creative Projects</h1>
     <div class="section">
-        <p>Selected works.</p>
         <h2>52 Bots</h2>
         <img src="img/hwaet.jpg">
         <p>Originally this was a project to create a twitter bot each week, then it just turned into making a bunch of bots. Done primarily in Python, with all source online. My favorite one so far, <a target="_blank" href='https://twitter.com/HwaetBot'>@HwaetBot</a>, uses a Markov model to auto-generate Old English riddles, trained using the Exeter Book as source material.</p>
@@ -185,7 +184,8 @@
 </p>
     <p>    
     When coming up with my own scheduler / tween systems, I was heavily influenced by code in Matthias Richter's <a href="https://github.com/vrld/hump">HUMP libraries</a>. Other specific code I directly used can be found on the <a href="https://github.com/jimmytheleaf/love-juicy">github page.</a>
-    What I learned; Thoughts on the code / development process
+    </p>
+    <p><strong>Thoughts on the code / development process</strong></p> 
     <ul>
         <li>I had a lot of fun playing with Lua -- it's a nice little scripting  prototype-based language with an interesting table-centric paradigm of doing things. I did a lot of things with functions and what elsewhere would be called function-pointers/delegates that I've never done before, and it was super easy/intuitive to do so. Metatables are pretty cool and are a fun way to think about how to control objects. That all said, I don't know that I would use it for any sort of serious non-embedded / non-game-related development, since the built-in libraries are not very expansive, and you sort of have to force objects onto it / gamble on someone's implementation of an object class -- I'd generally stick to Python for things I might consider doing with Lua. The lack of easy IDE-integration made refactoring and changing things tough -- though there are things like ZeroBrane and LuaEclipse, the tools they offer are way behind the sorts of things you can do in Eclipse with Java and Python.</span></li>
         <li>Implementing and working with the Entity-Component system made me retroactively understand my forays into Unity3D much better.</li>
