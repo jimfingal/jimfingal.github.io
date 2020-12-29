@@ -129,6 +129,117 @@
 
     </div>
     <hr />
+    <a name="games"/>
+    <h1>Games</h1>
+    <div class="section">
+    <p>Though I've mostly fallen off, for a while there I enjoyed making video games. Here are some of them.</p>
 
+    <h2>Echobreakout</h2>
+    <img src="img/echobreakout.png" />
+    <p>
+    For Music Hack Day Boston 2012, Brian Fife and I made Echobreakout, a brickbreaker clone built in <a href="https://love2d.org/">LÖVE</a>, using <a href="http://developer.echonest.com/">Echonest APIs</a> to chop up a song into fragments, which are rendered as a game state of dynamically colored bricks that play the source sound clip when hit.
+</p>
+    <p><a href='https://www.dropbox.com/s/go63euc7vkg5l6u/echobreakout.love'>A version of Echobreakout compiled for Love 0.9.x can be found here</a>. (Requires a download of <a href='https://www.love2d.org/'>Love2d</a> to run, but will run on any platform that supports it.)</p>
+   <p> 
+    Songs in that version are:
+    
+    <a href='http://freemusicarchive.org/music/Ballpen/The_dreams_trilogy/10_LBN005_10_-_Ballpen_-_Anne_Lisa_goes_to_bedmp3'>"Anne Lisa goes to bed" by Ballpen</a>. (<a rel="cc:attributionURL" property="cc:attributionName" href="http://freemusicarchive.org/music/Ballpen/">Ballpen</a>) / <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">CC BY-NC-ND 3.0</a>.
+    
+    "You Kill My Brother - GoGoGo" and "Crazy Games - Wake Up"  from Micro Invasion - East Jakarta Chiptunes Compilation (<a rel="cc:attributionURL" property="cc:attributionName" href="http://www.myspace.com/microinvasion">Indonesian Chiptunes</a>) / <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/">CC BY-NC-SA 3.0</a>.
+    
+    If you're looking to the <a href='http://freemusicarchive.org/search'>FMA for CC music</a> there is a search filter "By Use." 
+</p>    
+    
+    <h2>Juicy Breakout in LÖVE</h2>
+    <img src="img/juicybreakout.png" />
+    <p>I previously played around with the Love2d game engine as part of a Music Hack Day project with a friend. I did this project as a way to teach myself more about game development, so that I could try my hand at a few indie game projects to see whether or not it was something I was interested in seriously pursuing. (It wasn't.)<p>
+        
+    <p>I'm not sure how I came across it, but Martin Jonasson &amp; Petri Purho's "<a href="http://www.youtube.com/watch?v=Fy0aCDmgnxg">Juice It Or Lose It</a>" video was pretty eye-opening for me in terms of how small aesthetic design choices can greatly influence how fun a game seems. After watching that, I wanted to see what it would be like to implement some of those "juicy" features into EchoBreakout.
+    </p>
+    <p>  
+    A good deal of coding, and three or four rounds of full refactoring later, I came up with an implementation that I'm moderately happy with. It can be found on github <a href="https://github.com/jimmytheleaf/love-juicy">here</a>. I'm about ready to move on to playing with other frameworks, so figured I'd do a bit of a post-mortem here.
+    Post-Mortem Time!
+</p>
+
+    <p>
+    <strong>Specific Juicy Features</strong>
+    <ul>
+        <li>Splash Screen that bounces in</li>
+        <li>Bricks and Paddle that drop in, with jitter and elastic shape/rotation scaling</li>
+        <li>Bricks that flash colors, and rotate/scale-down/get launched off into background in the direction the ball hits them</li>
+        <li>Ball that has elastic shape scaling, color-change, and rotation on collisions</li>
+        <li>Paddle and Walls that elastically bounce when hit by ball</li>
+        <li>Background that flashes colors on certain ball collision events</li>
+        <li>Confetti particles that eject from ball upon collisions</li>
+        <li>Flashing "You Win" text when all bricks are destroyed</li>
+    </ul>
+    <strong>Support code to get us there:</strong>
+    <ul>
+        <li>A backend Entity-Component system for managing entities, along with basic CNF-query class for retrieving entities with particular components</li>
+        <li>Basic movement, input, collision, time, state, statistics-tracking, and rendering components / systems</li>
+        <li>Behavior system for adding special frame-by-frame logic to entities</li>
+        <li>Message system for announcing events and allowing entities to register their own response to events</li>
+        <li>Emitter component / system (used stupidly for particles here, but generic for any kind of entity)</li>
+        <li>Camera system (doesn't get much advanced use here)</li>
+        <li>Tweening and Scheduling systems</li>
+        <li>Lua ports of a few basic Java-like collections classes</li>
+        <li>Implementation of a Pool util class</li>
+    </ul>
+</p>
+    <p>
+    Over the course of development, I refactored the codebase I was working on a few times to continually clean things up. Eventually I settled on creating a basic Entity-Component framework inspired by <a href="http://gamadu.com/artemis/">Artemis</a> and <a href="http://t-machine.org/index.php/2007/09/03/entity-systems-are-the-future-of-mmog-development-part-1/">posts by Adam Martin</a>. Just about everything in the game is an Entity; every data attribute is packaged in a Component; and everything that happens to update or react to those Components happens in a System. For a basic overview of the theory behind this, check out <a href="http://t-machine.org/index.php/2007/11/11/entity-systems-are-the-future-of-mmog-development-part-2/">this post</a>.
+</p>
+    <p>    
+    When coming up with my own scheduler / tween systems, I was heavily influenced by code in Matthias Richter's <a href="https://github.com/vrld/hump">HUMP libraries</a>. Other specific code I directly used can be found on the <a href="https://github.com/jimmytheleaf/love-juicy">github page.</a>
+    What I learned; Thoughts on the code / development process
+    <ul>
+        <li>I had a lot of fun playing with Lua -- it's a nice little scripting  prototype-based language with an interesting table-centric paradigm of doing things. I did a lot of things with functions and what elsewhere would be called function-pointers/delegates that I've never done before, and it was super easy/intuitive to do so. Metatables are pretty cool and are a fun way to think about how to control objects. That all said, I don't know that I would use it for any sort of serious non-embedded / non-game-related development, since the built-in libraries are not very expansive, and you sort of have to force objects onto it / gamble on someone's implementation of an object class -- I'd generally stick to Python for things I might consider doing with Lua. The lack of easy IDE-integration made refactoring and changing things tough -- though there are things like ZeroBrane and LuaEclipse, the tools they offer are way behind the sorts of things you can do in Eclipse with Java and Python.</span></li>
+        <li>Implementing and working with the Entity-Component system made me retroactively understand my forays into Unity3D much better.</li>
+        <li>Being used to using powerful Java and Python libraries, I ended up implementing Set, List, Pool, Tally, and Multimap classes in lua, which was a good exercise.</li>
+        <li><span style="line-height: 1.6em;">Throughout most of the development the FPS was solidly at 60, but towards the end it started going way down. There are some basic things that this just seems to be slow with -- for example, trying to implement a simple history class that took a snapshot of the ball's position every 5-10 frames for the purpose of drawing a ball-trail ended up reducing my FPS by ~10. I'm not sure how much of this is me doing things inefficiently vs. limitations of Love2d, but in the back of my head it feels like if Starcraft 2 exists, I should be able to track this small amount of data without slowing things down that much. (I also don't think Chrome should use a GB of RAM to have a reasonable amount of tabs open, so that shows you what I know.)</span></li>
+        <li>I'm not super happy with my Rendering classes. I didn't want my shapes to themselves have Transforms, so they are rendered with an offset from an entity's Transform component; the downside to this is the shape code itself and the collision code dealing with them is much less legible than my original stab at it.</li>
+        <li><span style="line-height: 1.6em;">If I was doing a game for real with this, I would invest more time in the tests / test framework.</span></li>
+        <li>While Love2d is great for rapid prototyping and very easily building / seeing the results of your code changes, the current lack of easy built-in web-integration probably means I won't be spending much more time with it -- if I was doing game I wanted to release "for real" I'd likely want to use a more powerful C-based language, and if I was doing a hack day project I'd want to do something that could export to HTML5 so people don't have to download an executable to try out the game. (This was annoying when we were trying to publish EchoBreakout.)</li>
+    </ul>
+</p>
+
+    <h2>Various Experiments in LÖVE
+   </h2> 
+   <p>
+    Screenshots of a few experiments in Love2d. Code for these can be found at my <a href='https://github.com/jimmytheleaf/love-lonelyatoms'>Github account</a>.
+</p>
+    <h3>Automata</h3> 
+    <img src="https://raw.githubusercontent.com/jimmytheleaf/love-lonelyatoms/master/img/automata.png">
+    <p>Minimalist "Game of Life" implementation with some pretty colors.</p> 
+    <h3>Bullettest</h3>
+    <img src="https://raw.githubusercontent.com/jimmytheleaf/love-lonelyatoms/master/img/bullettest.png">
+    <p>Test game for shotting bullets, placing them in a quadtree, and testing an (invincible) opponent with AI steering behaviors.</p>
+    <h3>Quadtreetest
+    </h3>
+    <img src="https://raw.githubusercontent.com/jimmytheleaf/love-lonelyatoms/master/img/quadtree.png">
+    <p>Code to visually test my implementation of quadtrees.</p>
+    <h3>Soundtest</h3>
+    <img src="https://raw.githubusercontent.com/jimmytheleaf/love-lonelyatoms/master/img/soundtest.png">
+    <p>Test implementation of real-time audio synthesis. Press up or down to change wave types, and press "w" or "s" to change note.</p>
+    <h3>Soundtiles</h3>
+    <img src="https://raw.githubusercontent.com/jimmytheleaf/love-lonelyatoms/master/img/soundtiles.png">    
+    <p>An audio toy that uses real-time audio synthesis and a looping window to create and play simple set of notes/chords. Click on a square to set a note. Press up or down to change wave types.</p>
+    <h3>Tile Test</h3>
+    <img src="https://raw.githubusercontent.com/jimmytheleaf/love-lonelyatoms/master/img/tiletest.png">  
+    <p>Test implementation of mapping the screen into tiles.</p>
+    
+    <h3>### Warpinggrid</h3>
+    <img src="https://raw.githubusercontent.com/jimmytheleaf/love-lonelyatoms/master/img/warpinggrid.png">
+    <p>A 3d warping grid projected onto a 2d plane, a la Geometry Wars.
+    Press enter or space to warp the grid.     
+    Concepts drawn from <a href="http://gamedev.tutsplus.com/tutorials/implementation/make-a-neon-vector-shooter-in-xna-the-warping-grid/">Game tutorials</a> and ported to lua.
+    </p>
+    <h3>Water</h3>
+    
+    <img src="https://raw.githubusercontent.com/jimmytheleaf/love-lonelyatoms/master/img/water.png">
+    <p>
+        Moderately dissatisfactory experiment in using springs to simulate water effects. Based on http://gamedev.tutsplus.com/tutorials/implementation/make-a-splash-with-2d-water-effects/
+    </p>
+    </div>
 </body>
 </html>
