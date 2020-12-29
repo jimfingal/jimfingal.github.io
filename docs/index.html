@@ -5,7 +5,6 @@
   <title>Jim Fingal</title>
     <link rel="stylesheet" href="css/main.css" />
     <meta name="description" content="Jim Fingal's Homepage" />
-    </style>
 </head>
 <body>
     <center><h1>Jim Fingal's homepage</h1>
@@ -155,6 +154,7 @@
 
     <p>
     <strong>Specific Juicy Features</strong>
+    </p>
     <ul>
         <li>Splash Screen that bounces in</li>
         <li>Bricks and Paddle that drop in, with jitter and elastic shape/rotation scaling</li>
@@ -165,7 +165,9 @@
         <li>Confetti particles that eject from ball upon collisions</li>
         <li>Flashing "You Win" text when all bricks are destroyed</li>
     </ul>
+    <p>
     <strong>Support code to get us there:</strong>
+    </p>
     <ul>
         <li>A backend Entity-Component system for managing entities, along with basic CNF-query class for retrieving entities with particular components</li>
         <li>Basic movement, input, collision, time, state, statistics-tracking, and rendering components / systems</li>
@@ -177,7 +179,7 @@
         <li>Lua ports of a few basic Java-like collections classes</li>
         <li>Implementation of a Pool util class</li>
     </ul>
-</p>
+
     <p>
     Over the course of development, I refactored the codebase I was working on a few times to continually clean things up. Eventually I settled on creating a basic Entity-Component framework inspired by <a href="http://gamadu.com/artemis/">Artemis</a> and <a href="http://t-machine.org/index.php/2007/09/03/entity-systems-are-the-future-of-mmog-development-part-1/">posts by Adam Martin</a>. Just about everything in the game is an Entity; every data attribute is packaged in a Component; and everything that happens to update or react to those Components happens in a System. For a basic overview of the theory behind this, check out <a href="http://t-machine.org/index.php/2007/11/11/entity-systems-are-the-future-of-mmog-development-part-2/">this post</a>.
 </p>
@@ -188,9 +190,9 @@
         <li>I had a lot of fun playing with Lua -- it's a nice little scripting  prototype-based language with an interesting table-centric paradigm of doing things. I did a lot of things with functions and what elsewhere would be called function-pointers/delegates that I've never done before, and it was super easy/intuitive to do so. Metatables are pretty cool and are a fun way to think about how to control objects. That all said, I don't know that I would use it for any sort of serious non-embedded / non-game-related development, since the built-in libraries are not very expansive, and you sort of have to force objects onto it / gamble on someone's implementation of an object class -- I'd generally stick to Python for things I might consider doing with Lua. The lack of easy IDE-integration made refactoring and changing things tough -- though there are things like ZeroBrane and LuaEclipse, the tools they offer are way behind the sorts of things you can do in Eclipse with Java and Python.</span></li>
         <li>Implementing and working with the Entity-Component system made me retroactively understand my forays into Unity3D much better.</li>
         <li>Being used to using powerful Java and Python libraries, I ended up implementing Set, List, Pool, Tally, and Multimap classes in lua, which was a good exercise.</li>
-        <li><span style="line-height: 1.6em;">Throughout most of the development the FPS was solidly at 60, but towards the end it started going way down. There are some basic things that this just seems to be slow with -- for example, trying to implement a simple history class that took a snapshot of the ball's position every 5-10 frames for the purpose of drawing a ball-trail ended up reducing my FPS by ~10. I'm not sure how much of this is me doing things inefficiently vs. limitations of Love2d, but in the back of my head it feels like if Starcraft 2 exists, I should be able to track this small amount of data without slowing things down that much. (I also don't think Chrome should use a GB of RAM to have a reasonable amount of tabs open, so that shows you what I know.)</span></li>
+        <li>Throughout most of the development the FPS was solidly at 60, but towards the end it started going way down. There are some basic things that this just seems to be slow with -- for example, trying to implement a simple history class that took a snapshot of the ball's position every 5-10 frames for the purpose of drawing a ball-trail ended up reducing my FPS by ~10. I'm not sure how much of this is me doing things inefficiently vs. limitations of Love2d, but in the back of my head it feels like if Starcraft 2 exists, I should be able to track this small amount of data without slowing things down that much. (I also don't think Chrome should use a GB of RAM to have a reasonable amount of tabs open, so that shows you what I know.)</li>
         <li>I'm not super happy with my Rendering classes. I didn't want my shapes to themselves have Transforms, so they are rendered with an offset from an entity's Transform component; the downside to this is the shape code itself and the collision code dealing with them is much less legible than my original stab at it.</li>
-        <li><span style="line-height: 1.6em;">If I was doing a game for real with this, I would invest more time in the tests / test framework.</span></li>
+        <li>If I was doing a game for real with this, I would invest more time in the tests / test framework.</li>
         <li>While Love2d is great for rapid prototyping and very easily building / seeing the results of your code changes, the current lack of easy built-in web-integration probably means I won't be spending much more time with it -- if I was doing game I wanted to release "for real" I'd likely want to use a more powerful C-based language, and if I was doing a hack day project I'd want to do something that could export to HTML5 so people don't have to download an executable to try out the game. (This was annoying when we were trying to publish EchoBreakout.)</li>
     </ul>
 </p>
