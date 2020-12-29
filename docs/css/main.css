@@ -59,7 +59,8 @@ blockquote p {
 
 #main {
 	margin-left: 10%;
-	min-height: 90em;
+	margin-right: 10%;
+    min-height: 90em;
 	background-color: #fff;
 }
 
