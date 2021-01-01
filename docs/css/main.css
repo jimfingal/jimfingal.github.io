@@ -24,8 +24,9 @@
 }
 
 body {
-	margin-left: 10%;
-	margin-right: 10%;
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
     min-height: 90em;
 	background-color: #fff;
     font-family: proxima-nova, verdana, arial, san-serif;
